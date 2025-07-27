@@ -1,0 +1,4 @@
+project_id         = "my-gcp-project-id"
+gcs_bucket_name    = "my-file-bucket-name"
+bq_dataset_name    = "bq_dataset"
+service_account_id = "service-account"
