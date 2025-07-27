@@ -39,11 +39,15 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Create terraform.tfvars.json file
+        shell: bash
+        - name: Create terraform.tfvars.json file
+        shell: bash
+        run: |
+          echo '${{ secrets.TFVARS_CONTENT_JSON }}' > terraform.tfvars.json
+
       - name: Terraform Init
         run: terraform init
-
-      - name: Create terraform.tfvars file
-        run: echo "${{ env.TFVARS_CONTENT }}" > terraform.tfvars
 
       - name: Terraform Format Check
         run: terraform fmt -check
@@ -53,7 +57,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=terraform.tfvars -out=tfplan
+        run: terraform plan -out=tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
