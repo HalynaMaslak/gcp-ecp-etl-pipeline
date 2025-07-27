@@ -1,28 +1,50 @@
-name: Terraform CI
+name: Terraform CI/CD
 
 on:
   push:
-    branches: dev
+    branches:
+      - dev
+      - main
   pull_request:
-    branches: main
+    branches:
+      - main
+
+env:
+  GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
   terraform:
-    name: Validate Terraform
+    name: Terraform Workflow
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform Init
-      run: terraform init
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          service_account_key: ${{ env.GOOGLE_CREDENTIALS }}
 
-    - name: Terraform Format Check
-      run: terraform fmt -check
+      - name: Terraform Init
+        run: terraform init
 
-    - name: Terraform Validate
-      run: terraform validate
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve tfplan
