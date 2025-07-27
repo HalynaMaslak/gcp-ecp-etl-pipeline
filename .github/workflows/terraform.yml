@@ -54,9 +54,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        id: plan
-        run: terraform plan -lock=false -var-file=terraform.tfvars.json -out=tfplan
-
+        run: terraform plan -out=tfplan
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
