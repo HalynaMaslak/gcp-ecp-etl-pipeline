@@ -1,0 +1,8 @@
+OrderID,CustomerID,OrderRegion,OrderDate,OrderAmount,ProductID,Quantity,TotalOrderValue
+101,1,Yorkshire,2023-07-01,150.0,1001,1,150.0
+104,3,London,2023-07-05,350.0,1000,4,1400.0
+105,2,Tyne & Wear,2023-07-03,100.0,1003,1,100.0
+106,1,Yorkshire,2023-07-01,150.0,1001,1,150.0
+107,2,Tyne & Wear,2023-07-03,100.0,1003,1,100.0
+108,1,Yorkshire,2023-07-01,50.0,1006,3,150.0
+109,3,London,2023-07-05,970.0,1000,3,2910.0
