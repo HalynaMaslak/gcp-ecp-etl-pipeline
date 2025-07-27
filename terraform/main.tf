@@ -31,3 +31,11 @@ resource "google_project_iam_member" "bq_access" {
   role    = "roles/bigquery.dataEditor"
   member  = "serviceAccount:${google_service_account.my_sa.email}"
 }
+
+terraform {
+  backend "gcs" {
+    bucket = "ecp-tech-assessment-bucket"
+    prefix = "terraform/state"
+  }
+}
+
