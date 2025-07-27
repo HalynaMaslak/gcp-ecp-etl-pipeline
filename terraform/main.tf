@@ -10,8 +10,8 @@ resource "google_storage_bucket" "file_bucket" {
 }
 
 resource "google_bigquery_dataset" "my_dataset" {
-  dataset_id                  = var.bq_dataset_name
-  location                    = var.region
+  dataset_id                 = var.bq_dataset_name
+  location                   = var.region
   delete_contents_on_destroy = true
 }
 
@@ -22,12 +22,12 @@ resource "google_service_account" "my_sa" {
 
 resource "google_project_iam_member" "storage_access" {
   project = var.project_id
-  role   = "roles/storage.admin"
-  member = "serviceAccount:${google_service_account.my_sa.email}"
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.my_sa.email}"
 }
 
 resource "google_project_iam_member" "bq_access" {
   project = var.project_id
-  role   = "roles/bigquery.dataEditor"
-  member = "serviceAccount:${google_service_account.my_sa.email}"
+  role    = "roles/bigquery.dataEditor"
+  member  = "serviceAccount:${google_service_account.my_sa.email}"
 }
