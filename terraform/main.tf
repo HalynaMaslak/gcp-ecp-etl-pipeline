@@ -87,7 +87,7 @@ resource "google_bigquery_table" "orders" {
   ])
 
   time_partitioning {
-    type = "DAY"
+    type  = "DAY"
     field = "OrderDate"
   }
 }
