@@ -1,0 +1,5 @@
+{
+  "bucket_name": "ecp-tech-assessment-bucket",
+  "source_file_path": "../files/cleaned_orders.csv",
+  "destination_blob_name": "files/cleaned_orders.csv"
+}

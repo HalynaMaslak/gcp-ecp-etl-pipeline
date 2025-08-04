@@ -39,3 +39,57 @@ terraform {
   }
 }
 
+resource "google_bigquery_table" "orders" {
+  dataset_id = var.bq_dataset_name
+  table_id   = "orders"
+
+  schema = jsonencode([
+    {
+      name = "OrderID"
+      type = "STRING"
+      mode = "REQUIRED"
+    },
+    {
+      name = "CustomerID"
+      type = "STRING"
+      mode = "REQUIRED"
+    },
+    {
+      name = "OrderRegion"
+      type = "STRING"
+      mode = "REQUIRED"
+    },
+    {
+      name = "OrderDate"
+      type = "DATE"
+      mode = "REQUIRED"
+    },
+    {
+      name = "OrderAmount"
+      type = "FLOAT"
+      mode = "REQUIRED"
+    },
+    {
+      name = "ProductID"
+      type = "STRING"
+      mode = "REQUIRED"
+    },
+    {
+      name = "Quantity"
+      type = "INTEGER"
+      mode = "REQUIRED"
+    },
+    {
+      name = "TotalOrderValue"
+      type = "FLOAT"
+      mode = "REQUIRED"
+    }
+  ])
+
+  time_partitioning {
+    type  = "DAY"
+    field = "OrderDate"
+  }
+}
+
+
